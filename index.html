@@ -191,7 +191,8 @@
                 <a href="https://t.me/ulyanaa_20" target="_blank" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
             </div>
         </div>
-    <!-- Yandex.Metrika counter -->
+
+        <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
     (function(m,e,t,r,i,k,a){
         m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -206,16 +207,18 @@
       <!-- /Yandex.Metrika counter -->
 
    </footer>
+
+<!-- Только один jQuery (оставлен для совместимости с другими возможными скриптами) -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+<!-- Плагин маски больше НЕ нужен, удалён -->
+
 <script>
-    // --- 1. ЛОГИКА COOKIE-БАННЕРА ---
+    // --- 1. ЛОГИКА COOKIE-БАННЕРА (без изменений) ---
     document.addEventListener('DOMContentLoaded', (event) => {
         const banner = document.getElementById('cookieBanner');
         const acceptButton = document.getElementById('acceptCookies');
         const cookieName = 'cookie_consent_neskuchny'; 
 
-        // Функции для работы с Cookie
         function setCookie(name, value, days) {
             let expires = "";
             if (days) {
@@ -237,35 +240,60 @@
             return null;
         }
 
-        // Основная логика: Проверка и отображение
         if (getCookie(cookieName) === 'true') {
             banner.style.display = 'none';
         } else {
-            // Если cookie не найден, показываем баннер
             banner.style.display = 'flex'; 
         }
 
-        // Обработка нажатия кнопки
         acceptButton.addEventListener('click', () => {
-            setCookie(cookieName, 'true', 365); // Устанавливаем cookie на 1 год
+            setCookie(cookieName, 'true', 365);
             banner.style.display = 'none';
         });
     });
 
-    // --- 2. ЛОГИКА МАСКИ ТЕЛЕФОНА (Ваш код) ---
-    $(document).ready(function(){
-        // Находим поле по его ID (c-phone) и применяем маску
-        $('#c-phone').mask('+7 (000) 000-00-00', {
-            placeholder: '+7 (___) ___ __ __' 
+    // --- 2. МАСКА ТЕЛЕФОНА (чистый JavaScript, без jQuery) ---
+    function setupPhoneMask() {
+        const phoneInput = document.getElementById('c-phone');
+        if (!phoneInput) return;
+
+        phoneInput.addEventListener('input', function(e) {
+            let x = e.target.value.replace(/\D/g, '').substring(0, 11);
+            if (x.startsWith('7') || x.startsWith('8')) {
+                x = x.substring(1);
+            }
+            let formatted = '+7 ';
+            if (x.length > 0) {
+                formatted += '(' + x.substring(0, 3);
+            }
+            if (x.length >= 3) {
+                formatted += ') ' + x.substring(3, 6);
+            }
+            if (x.length >= 6) {
+                formatted += '-' + x.substring(6, 8);
+            }
+            if (x.length >= 8) {
+                formatted += '-' + x.substring(8, 10);
+            }
+            e.target.value = formatted;
         });
-    });
+
+        phoneInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Backspace' && this.value === '+7 (___) ___ __ __') {
+                this.value = '';
+                e.preventDefault();
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', setupPhoneMask);
 </script>
+
 <div class="cookie-banner" id="cookieBanner">
     Мы используем файлы cookie для обеспечения функциональности и анализа трафика.
     <a href="#">Узнать больше</a>
     <button id="acceptCookies">Принять</button>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </body>
 </html>
