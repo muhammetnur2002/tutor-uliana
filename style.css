@@ -85,6 +85,7 @@ a:hover {
     position: sticky;
     top: 0;
     z-index: 1000;
+    backdrop-filter: blur(6px);
 }
 
 .main-header .container {
@@ -185,6 +186,9 @@ a:hover {
     margin-bottom: 40px;
 }
 
+.hero-section .container {
+    max-width: 800px;
+}
 /* --- CTA КНОПКА (Общий стиль) --- */
 .cta-button {
     display: inline-block;
@@ -289,7 +293,7 @@ a:hover {
     padding: 30px;
     border-radius: 5px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
     text-align: center;
 }
 
@@ -445,6 +449,7 @@ a:hover {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
     max-width: 45%;
     text-align: center;
+    line-height: 1.8;
 }
 
 .testimonial-card p {
@@ -550,6 +555,8 @@ a:hover {
     font-size: 0.85em;
     color: var(--color-dark-green);
     z-index: 5;
+    border-color: var(--color-dark-green);
+    box-shadow: 0 0 5px rgba(43, 87, 64, 0.3);
 }
 
 /* Убедитесь, что это правило присутствует и сработает для телефона */
@@ -731,4 +738,79 @@ footer p {
         flex-direction: column;
         gap: 10px;
     }
+}
+
+/* --- Плавающая кнопка записи --- */
+.floating-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--color-gold-accent);
+    color: var(--color-dark-green);
+    padding: 12px 18px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-family: 'Merriweather', serif;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    z-index: 999;
+    transition: all 0.3s ease;
+}
+
+.floating-button:hover {
+    background-color: var(--color-dark-green);
+    color: var(--color-beige);
+}
+
+/* --- Ограничение ширины текста --- */
+.about-text p,
+.service-card p,
+.testimonial-card p {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-button,
+.detail-button,
+.submit-button {
+    cursor: pointer;
+}
+
+/* эффект "нажатия" */
+.cta-button:active,
+.submit-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+section {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.faq-section,
+.for-whom-section,
+.advantages-section {
+    background-color: var(--color-white);
+}
+
+.cookies-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.cookies-content {
+    background: white;
+    padding: 30px;
+    max-width: 500px;
+    border-radius: 8px;
+    text-align: center;
 }
